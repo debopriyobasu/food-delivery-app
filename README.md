@@ -1,1 +1,1 @@
-# namaste-react
+# food delivery app

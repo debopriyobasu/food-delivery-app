@@ -1,33 +1,54 @@
 import React from'react'
 import ReactDOM from 'react-dom/client'
 
-const header = React.createElement("h1", {id:"header"}, "Hello World from React!");
-console.log(header)
-const root = ReactDOM.createRoot(document.getElementById("root2"));
-console.log(typeof(root))
-root.render(header);
+const Navbar = function() {
+  return (
+    <header className='header'>
+      <nav className='nav'>
+        <img className='brandLogo' src={require('./images/food-delivery-logo.webp')} alt='logo'/>
+        <ul className='nav_items'>
+          <li>
+            <a href='#'>Home</a>
+          </li>
+          <li>
+            <a href='#'>About</a>
+          </li>
+          <li>
+            <a href='#'>Contact</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+  );
+}
+const Card = () => (
+    <article className='card'>
+        <img src={require('./images/pizza.jpeg')} className="cardImg" alt='food'/>
+        <div className='description'>
+            <h2>Pizza Hut</h2>
+            <p>4.4</p>
+            <p>$6.99</p>
+        </div>
+        
+    </article>
+)
+const Main = () => (
+    <section id='foodMenu'>
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+    </section>
+)
 
-{/* <div id="parent">
-    <div id="child1">
-        <h1>This is a heading</h1>
-        <p>This is a paragraph</p>
-    </div>
-    <div id="child2">
-        <h1>This is a heading</h1>
-        <p>This is a paragraph</p>
-    </div>
-</div> */}
+const App = () => (
+    <>
+        <Navbar />
+        <Main />
+    </>
+)
 
-const parent = React.createElement('div',{
-    id: "parent"
-}, [
-        React.createElement('div', {id: "child1"}, [
-        React.createElement('h1',{},"This is a heading"),
-        React.createElement('p',{},'This is a paragraph')
-        ]),
-        React.createElement('div', {id: "child2"}, [
-        React.createElement('h1',{},"This is a heading"),
-        React.createElement('p',{},'This is a paragraph')
-        ])
-    ])
-root.render(parent)
+const root = ReactDOM.createRoot(document.getElementById('root'))
+root.render(<App />)

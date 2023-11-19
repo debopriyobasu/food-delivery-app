@@ -1,11 +1,14 @@
 import React from'react'
 import ReactDOM from 'react-dom/client'
+import pizza from './images/pizza.jpeg'
+import logo from './images/food-delivery-logo.webp'
+import restaurantData from './restaurant_data.json'
 
 const Navbar = function() {
   return (
     <header className='header'>
       <nav className='nav'>
-        <img className='brandLogo' src={require('./images/food-delivery-logo.webp')} alt='logo'/>
+        <img className='brandLogo' src={logo} alt='logo'/>
         <ul className='nav_items'>
           <li>
             <a href='#'>Home</a>
@@ -21,25 +24,28 @@ const Navbar = function() {
     </header>
   );
 }
-const Card = () => (
+const Card = (props) => {
+  const {restaurantData} = props;
+  const {name, avgRating, costForTwo, cloudinaryImageId} = restaurantData?.info;
+  console.log(restaurantData)
+  return (
     <article className='card'>
-        <img src={require('./images/pizza.jpeg')} className="cardImg" alt='food'/>
+        <img src={"https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/"+cloudinaryImageId} className="cardImg" alt='food'/>
         <div className='description'>
-            <h2>Pizza Hut</h2>
-            <p>4.4</p>
-            <p>$6.99</p>
-        </div>
-        
+            <h2>{name}</h2>
+            <p>{avgRating}</p>
+            <p>{costForTwo}</p>
+        </div>   
     </article>
-)
+  )  
+}
 const Main = () => (
     <section id='foodMenu'>
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+      {
+        restaurantData.restaurants
+        .map(restaurant => 
+        <Card key={restaurant.info.id} restaurantData = {restaurant}/>)
+      }
     </section>
 )
 

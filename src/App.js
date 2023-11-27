@@ -1,11 +1,11 @@
 import React from'react'
 import ReactDOM from 'react-dom/client'
 import Navbar from './components/Navbar'
-import Main from './components/Main'
+import Body from './components/Body'
 const App = () => (
     <>
         <Navbar />
-        <Main />
+        <Body />
     </>
 )
 

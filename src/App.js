@@ -1,13 +1,13 @@
-import React from'react'
-import ReactDOM from 'react-dom/client'
-import Navbar from './components/Navbar'
-import Body from './components/Body'
+import React, { StrictMode } from "react";
+import ReactDOM from "react-dom/client";
+import Navbar from "./components/Navbar";
+import Body from "./components/Body";
 const App = () => (
-    <>
-        <Navbar />
-        <Body />
-    </>
-)
+  <StrictMode>
+    <Navbar />
+    <Body />
+  </StrictMode>
+);
 
-const root = ReactDOM.createRoot(document.getElementById('root'))
-root.render(<App />)
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);

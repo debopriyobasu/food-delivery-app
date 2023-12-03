@@ -8,12 +8,11 @@
   font-size: 1rem;
   font-family: "Montserrat", sans-serif;
   color: var(--font-primary);
-  background-color: var(--color-secondary);
 }
 :root {
   --font-primary: #141824;
   --color-primary: #f46c34;
-  --color-secondary: #f6f6f7;
+  --color-secondary: #e2e8f0;
 }
 
 @layer components {

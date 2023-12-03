@@ -1,8 +1,9 @@
 import Card from "./Card";
-// import restaurantData from '../utils/restaurant_data.json'
 import { useEffect, useState } from "react";
 const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
+  const [originalRestaurants, setOriginalListOfRestaurants] = useState([]);
+  const [filtered, setFiltered] = useState(false);
   useEffect(() => {
     fetchData();
   }, []);
@@ -15,27 +16,36 @@ const Body = () => {
     setListOfRestaurants(
       json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
+    setOriginalListOfRestaurants(
+      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
   };
+
+  const filteredList = listOfRestaurants.filter(
+    (res) => res.info.avgRating > 4.2
+  );
 
   if (listOfRestaurants.length === 0) return <h1>Loading...</h1>;
   return (
-    <>
+    <div className="md:mx-auto max-w-screen-lg my-2">
       <button
+        className={`${
+          filtered === false ? "bg-gray-300" : "bg-gray-500"
+        } hover:bg-gray-500 text-white font-bold py-2 px-2 rounded`}
         onClick={() => {
-          const filteredList = listOfRestaurants.filter(
-            (res) => res.info.avgRating > 4
-          );
-          setListOfRestaurants(filteredList);
+          filtered === false
+            ? (setFiltered(true), setListOfRestaurants(filteredList))
+            : (setFiltered(false), setListOfRestaurants(originalRestaurants));
         }}
       >
         Filter
       </button>
-      <section className="md:mx-auto max-w-screen-lg grid grid-cols-4 gap-5">
+      <section className="grid grid-cols-5 gap-5 py-5">
         {listOfRestaurants.map((restaurant) => (
           <Card key={restaurant.info.id} restaurantData={restaurant} />
         ))}
       </section>
-    </>
+    </div>
   );
 };
 

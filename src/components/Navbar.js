@@ -3,7 +3,7 @@ import { LOGO_PATH } from "../utils/constants";
 const Navbar = function () {
   const [btnName, setBtnName] = useState("Login");
   return (
-    <header className="header">
+    <header className="header bg-white shadow-md">
       <nav className="nav">
         <img className="brandLogo" src={LOGO_PATH} alt="logo" />
         <ul className="nav_items">

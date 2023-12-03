@@ -36,7 +36,12 @@ const Body = () => {
     setListOfRestaurants(searchFilter);
   };
 
-  if (listOfRestaurants.length === 0) return <h1>Loading...</h1>;
+  if (listOfRestaurants.length === 0)
+    return (
+      <div className="grid place-items-center h-[100vh]">
+        <h1 className="text-lg">Loading...</h1>
+      </div>
+    );
   return (
     <div className="md:mx-auto max-w-screen-lg my-2">
       <div className="flex justify-between">

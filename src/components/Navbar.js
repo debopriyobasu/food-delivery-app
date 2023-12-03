@@ -1,20 +1,24 @@
 import { useState } from "react";
 import { LOGO_PATH } from "../utils/constants";
+import { Link } from "react-router-dom";
 const Navbar = function () {
   const [btnName, setBtnName] = useState("Login");
   return (
     <header className="header bg-white shadow-md">
       <nav className="nav">
-        <img className="brandLogo" src={LOGO_PATH} alt="logo" />
+        <Link to="/">
+          <img className="brandLogo" src={LOGO_PATH} alt="logo" />
+        </Link>
+
         <ul className="nav_items">
           <li>
-            <a href="#">Home</a>
+            <Link to="/">Home</Link>
           </li>
           <li>
-            <a href="#">About</a>
+            <Link to="/about">About</Link>
           </li>
           <li>
-            <a href="#">Contact</a>
+            <Link to="/contact">Contact</Link>
           </li>
         </ul>
         <button

@@ -1,5 +1,6 @@
 import Card from "./Card";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
   const [originalRestaurants, setOriginalListOfRestaurants] = useState([]);
@@ -75,7 +76,9 @@ const Body = () => {
 
       <section className="grid grid-cols-4 gap-4 py-4">
         {listOfRestaurants.map((restaurant) => (
-          <Card key={restaurant.info.id} restaurantData={restaurant} />
+          <Link to={"/restaurants/" + restaurant.info.id}>
+            <Card key={restaurant.info.id} restaurantData={restaurant} />
+          </Link>
         ))}
       </section>
     </div>

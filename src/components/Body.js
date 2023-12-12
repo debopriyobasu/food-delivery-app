@@ -1,5 +1,6 @@
 import Card from "./Card";
 import { useEffect, useState } from "react";
+import useOnlineStatus from "../utils/useOnlineStatus";
 import { Link } from "react-router-dom";
 const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
@@ -9,7 +10,6 @@ const Body = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
   const fetchData = async () => {
     const data = await fetch(
       "https://corsproxy.io/?https%3A%2F%2Fwww.swiggy.com%2Fdapi%2Frestaurants%2Flist%2Fv5%3Flat%3D12.9715987%26lng%3D77.5945627%26is-seo-homepage-enabled%3Dtrue%26page_type%3DDESKTOP_WEB_LISTING"
@@ -23,6 +23,17 @@ const Body = () => {
       json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
   };
+
+  const onlineStatus = useOnlineStatus();
+  if (onlineStatus === false) {
+    return (
+      <div className="grid place-items-center h-[100vh]">
+        <h1 className="text-lg">
+          Looks like you're offline. Please check your internet connection
+        </h1>
+      </div>
+    );
+  }
 
   const filteredList = listOfRestaurants.filter(
     (res) => res.info.avgRating > 4.2

@@ -10,12 +10,22 @@ const RestaurantMenu = () => {
         <h1 className="text-lg">Loading...</h1>
       </div>
     );
-  const { name, cuisines, costForTwo } = resInfo?.cards[0]?.card?.card?.info;
-  const { itemCards } =
-    resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card
+  const {
+    name = "",
+    cuisines = [],
+    costForTwo = 0,
+  } = resInfo?.data?.cards[0]?.card?.card?.info || {};
+
+  console.log(name);
+  const { itemCards = [] } =
+    resInfo?.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card
       ?.card ||
-    resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card
-      ?.categories[0];
+    resInfo?.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card
+      ?.card?.categories[0] ||
+    resInfo?.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card
+      ?.card ||
+    {};
+
   console.log(itemCards);
   return (
     <div className="menu">

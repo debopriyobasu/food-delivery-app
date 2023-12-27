@@ -1,33 +1,16 @@
 import Card from "./Card";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import useRestaurantList from "../utils/useRestaurantList";
+import useFilterRatings from "../utils/useFilterRatings";
+import useSearchRestaurants from "../utils/useSearchRestaurants";
 import { Link } from "react-router-dom";
+import useSearchRestaurants from "../utils/useSearchRestaurants";
 const Body = () => {
-  const [listOfRestaurants, setListOfRestaurants] = useState([]);
-  const [originalRestaurants, setOriginalListOfRestaurants] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filtered, setFiltered] = useState(false);
-  useEffect(() => {
-    fetchData();
-  }, []);
-  const fetchData = async () => {
-    const url =
-      "https://corsproxy.org/?" +
-      encodeURIComponent(
-        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=22.572646&lng=88.36389500000001&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-      );
-    const data = await fetch(url);
-
-    const json = await data.json();
-    console.log(json);
-    setListOfRestaurants(
-      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
-    setOriginalListOfRestaurants(
-      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
-  };
-
+  const [listOfRestaurants, originalRestaurants, setListOfRestaurants] =
+    useRestaurantList();
   const onlineStatus = useOnlineStatus();
   if (onlineStatus === false) {
     return (
@@ -38,20 +21,11 @@ const Body = () => {
       </div>
     );
   }
-
-  const filteredList = listOfRestaurants.filter(
-    (res) => res.info.avgRating > 4.2
-  );
-
-  const searchFilteredList = () => {
-    const searchFilter = originalRestaurants.filter((res) =>
-      res.info.name
-        .toLowerCase()
-        .includes(searchTerm === "" ? "" : searchTerm.toLowerCase())
-    );
-    setListOfRestaurants(searchFilter);
+  const filteredList = useFilterRatings(listOfRestaurants);
+  const handleSearch = () => {
+    const filtered = useSearchRestaurants(originalRestaurants);
+    setListOfRestaurants(filtered);
   };
-
   if (listOfRestaurants.length === 0)
     return (
       <div className="grid place-items-center h-[100vh]">
@@ -70,7 +44,7 @@ const Body = () => {
               setSearchTerm(e.target.value);
             }}
           />
-          <button className="" onClick={searchFilteredList}>
+          <button className="" onClick={handleSearch}>
             Search
           </button>
         </div>
@@ -91,8 +65,11 @@ const Body = () => {
 
       <section className="grid grid-cols-4 gap-4 py-4">
         {listOfRestaurants.map((restaurant) => (
-          <Link to={"/restaurants/" + restaurant.info.id}>
-            <Card key={restaurant.info.id} restaurantData={restaurant} />
+          <Link
+            to={"/restaurants/" + restaurant.info.id}
+            key={restaurant.info.id}
+          >
+            <Card restaurantData={restaurant} />
           </Link>
         ))}
       </section>

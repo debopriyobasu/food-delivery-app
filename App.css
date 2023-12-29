@@ -14,7 +14,11 @@
   --color-primary: #f46c34;
   --color-secondary: #e2e8f0;
 }
-
+@layer base {
+  h1 {
+    @apply text-4xl;
+  }
+}
 @layer components {
   .card {
     @apply bg-white rounded-xl relative overflow-hidden flex flex-col justify-between shadow-md transition-transform scale-100 hover:scale-105 ease-in-out duration-300;

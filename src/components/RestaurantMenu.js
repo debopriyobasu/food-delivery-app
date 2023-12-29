@@ -26,10 +26,12 @@ const RestaurantMenu = () => {
       ?.card ||
     {};
 
-  console.log(itemCards);
+  console.log(
+    resInfo?.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards
+  );
   return (
-    <div className="menu">
-      <h1>{name}</h1>
+    <div className="menu md:mx-auto max-w-screen-lg my-2">
+      <h1 className="text-center font-bold">{name}</h1>
       <p>{cuisines.join(", ")}</p>
       <p>Rs. {costForTwo / 100}</p>
       <h2>Menu</h2>

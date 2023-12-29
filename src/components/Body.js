@@ -23,10 +23,10 @@ const Body = () => {
   }
   const filteredList = useFilterRatings(listOfRestaurants);
   const handleSearch = () => {
-    const filtered = useSearchRestaurants(originalRestaurants);
-    setListOfRestaurants(filtered);
+    const searchResults = useSearchRestaurants(originalRestaurants, searchTerm);
+    setListOfRestaurants(searchResults);
   };
-  if (listOfRestaurants.length === 0)
+  if (listOfRestaurants.length === 0 && searchTerm.length != 0)
     return (
       <div className="grid place-items-center h-[100vh]">
         <h1 className="text-lg">Loading...</h1>
